@@ -34,7 +34,7 @@ REDACTED
 
 ## Challenges
 
- - [2022-12-01 - Sonar Sweep](01)
+ - [2022-12-01 - Calorie Counting](01)
     - [Challenge 1](01/challenge1.sh) - counting calories largest value
     - [Challenge 2](01/challenge2.sh) - counting sum of largest three calories values
  
