@@ -4,7 +4,7 @@ CHALLENGES?=challenge1 challenge2
 TMPDIR?=/tmp
 
 .PHONY: run
-run: seed
+run:
 	@echo "========================================"
 	@echo "  Advent of Code 2022 - Mathew Fleisch"
 	@echo "========================================"
@@ -26,25 +26,6 @@ run-day:
 			echo "#> ./${TDAY}/${challenge}.sh ./${TDAY}/input.txt" \
 				&& ./${TDAY}/${challenge}.sh ./${TDAY}/input.txt; )
 
-
-.PHONY: seed
-seed:
-	@echo "========================================"
-	@echo "  Advent of Code 2022 - Mathew Fleisch"
-	@echo "========================================"
-	@echo
-	@$(foreach day, $(DAYS), \
-		echo "<============= Seeding 2022/12/${day} =============>" \
-			&& echo "#> mkdir -p ./${day} && touch ./${day}/input.txt" \
-			&& mkdir -p ./${day} \
-			&& touch ./${day}/input.txt \
-			&& $(foreach challenge, $(CHALLENGES), \
-			echo "#> echo "#!/bin/bash\necho \"Not Implemented\"" > ./${day}/${challenge}.sh" \
-				&& if ! [ -f "./${day}/${challenge}.sh" ]; then \
-					echo "#!/bin/bash\necho \"Not Implemented\"" > ./${day}/${challenge}.sh; \
-				fi \
-				&& echo "#> chmod +x ./${day}/${challenge}.sh" \
-				&& chmod +x ./${day}/${challenge}.sh; ))
 
 .PHONY: zip-log
 zip-log:
