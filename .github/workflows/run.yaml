@@ -1,0 +1,35 @@
+# Checkout code on every commit to the main branch
+# Path: .github/workflows/run.yaml
+name: Run Challenge Answers
+on:
+  pull_request:
+    types: [ assigned, opened, synchronize, reopened ]
+
+jobs:
+  run-answers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+      - name: Execute challenge answer scripts
+        run: |
+          allDays=""
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+            TDAY=$(echo "${changed_file}" | cut -d'/' -f1)
+            if [[ -z "$(echo "$allDays" | tr ' ' '\n' | grep $TDAY)" ]]; then
+              echo "-${TDAY}---------------------------------------"
+              TDAY=${TDAY} make run-day | tee /tmp/aoc2022-mathew-fleisch-answers.txt
+              allDays="${allDays} ${TDAY}"
+            fi
+          done
+          make zip-log
+      - uses: actions/upload-artifact@v2
+        with:
+          name: aoc2022-mathew-fleisch-answers.txt
+          path: /tmp/aoc2022-mathew-fleisch-answers.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: aoc2022-mathew-fleisch-logs.zip
+          path: /tmp/aoc2022-mathew-fleisch-logs.zip
