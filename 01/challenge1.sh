@@ -10,6 +10,7 @@ echo "started: $started" > $LOGFILE
 
 # Perserve empty lines
 rm -f tmp-input.txt
+rm -f tmp-groups.txt
 tmp=$(cat $inputFile | sed 's/^$/-/g')
 echo "$tmp" > tmp-input.txt
 IFS=$'\n' read -d '' -r -a values < tmp-input.txt;
@@ -18,23 +19,23 @@ inputLength=${#values[@]}
 [ $DEBUG -eq 1 ] && echo "Lines: $inputLength"
 echo "Lines: $inputLength" >> $LOGFILE
 
-highest=0
 group=0
+touch tmp-groups.txt
 for line in ${values[@]}; do
     [ $DEBUG -eq 1 ] && echo "$line"
 
     if [[ "$line" == "-" ]]; then
-        if [ $group -gt $highest ]; then
-            highest=$group
-        fi
+        echo "$group" >> tmp-groups.txt
         group=0
     else
         group=$((line+group))
     fi
 done
-echo "highest: $highest" | tee -a $LOGFILE
+echo "$group" >> tmp-groups.txt
+cat tmp-groups.txt | sort -nr | head -1 | awk '{ sum += $1 } END { print sum }' | tee -a $LOGFILE
 
 rm -f tmp-input.txt
+rm -f tmp-groups.txt
 now=$(date +%s)
 diff=$((now-started))
 echo "ended: $now" >> $LOGFILE
