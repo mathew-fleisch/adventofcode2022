@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - id: files
-        uses: jitterbit/get-changed-files@v1
       - name: Execute challenge answer scripts
         run: |
           make run | tee /tmp/aoc2022-mathew-fleisch-answers.txt
