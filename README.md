@@ -11,7 +11,7 @@ Pushing git tags to this repository will [execute each day's answer](https://git
 
 ## Usage
 
-Running the makefile targets 'seed' and 'run' will create stubs for any missing script and execute each challenge script in sequential order. Note: `export DEBUG=1` to see more information as each challenge script is executed.
+Running the makefile targets 'seed' and 'run' will create stubs for any missing script and execute each challenge script in sequential order. Note: `export DEBUG=1` to see more information as each challenge script is executed. See `make help` for more information.
 
 ```bash
 make run
