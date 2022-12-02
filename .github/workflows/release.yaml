@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Execute challenge answer scripts
         run: |
-          make run | tee /tmp/aoc2022-mathew-fleisch-answers.txt
+          make | tee /tmp/aoc2022-mathew-fleisch-answers.txt
           make zip-log
       - uses: actions/upload-artifact@v3
         with:

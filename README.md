@@ -2,7 +2,7 @@
 
 [![Build binaries](https://github.com/mathew-fleisch/adventofcode2022/actions/workflows/release.yaml/badge.svg)](https://github.com/mathew-fleisch/adventofcode2022/actions/workflows/release.yaml)
 
-The [Advent of Code](https://adventofcode.com/) is a programming puzzle challenge that gives participants two coding challenges each day during the month of December. This repository holds my submission/answers for these challenges. I am going to try and do all of them in bash, because I hate myself. Enjoy.
+The [Advent of Code](https://adventofcode.com/) is a programming puzzle challenge that gives participants two coding challenges each day during the month of December. This repository holds my submission/answers for these challenges. I am going to try and do all of them in bash, because I hate myself. This year with bash >=v4. Enjoy.
 
 ## Automation
 
