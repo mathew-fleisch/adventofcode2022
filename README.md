@@ -37,4 +37,7 @@ REDACTED
  - [2022-12-01 - Calorie Counting](01)
     - [Challenge 1](01/challenge1.sh) - counting calories largest value
     - [Challenge 2](01/challenge2.sh) - counting sum of largest three calories values
+  - [2022-12-02 - Rock Paper Scissors](02)
+    - [Challenge 1](02/challenge1.sh) - calculate win/loss/draw
+    - [Challenge 2](02/challenge2.sh) - expect win/loss/draw
  
