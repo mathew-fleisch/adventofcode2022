@@ -2,7 +2,7 @@
 
 [![Build binaries](https://github.com/mathew-fleisch/adventofcode2022/actions/workflows/release.yaml/badge.svg)](https://github.com/mathew-fleisch/adventofcode2022/actions/workflows/release.yaml)
 
-The [Advent of Code](https://adventofcode.com/) is a programming puzzle challenge that gives participants two coding challenges each day during the month of December. This repository holds my submission/answers for these challenges. I am going to try and do all of them in bash, because I hate myself. This year with bash >=v4. Enjoy.
+The [Advent of Code](https://adventofcode.com/) is a programming puzzle challenge that gives participants two coding challenges each day during the month of December. This repository holds my submission/answers for these challenges. I am going to try and do all of them in bash, because I hate myself. This year with bash >=v4. Enjoy. Reasons™
 
 ## Automation
 
@@ -11,7 +11,7 @@ Pushing git tags to this repository will [execute each day's answer](https://git
 
 ## Usage
 
-Running the makefile targets 'seed' and 'run' will create stubs for any missing script and execute each challenge script in sequential order. Note: `export DEBUG=1` to see more information as each challenge script is executed.
+Running the makefile targets 'seed' and 'run' will create stubs for any missing script and execute each challenge script in sequential order. Note: `export DEBUG=1` to see more information as each challenge script is executed. See `make help` for more information.
 
 ```bash
 make run
@@ -37,4 +37,7 @@ REDACTED
  - [2022-12-01 - Calorie Counting](01)
     - [Challenge 1](01/challenge1.sh) - counting calories largest value
     - [Challenge 2](01/challenge2.sh) - counting sum of largest three calories values
+  - [2022-12-02 - Rock Paper Scissors](02)
+    - [Challenge 1](02/challenge1.sh) - calculate win/loss/draw
+    - [Challenge 2](02/challenge2.sh) - expect win/loss/draw
  
