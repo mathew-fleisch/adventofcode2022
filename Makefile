@@ -9,7 +9,7 @@ run:
 	@echo "  Advent of Code 2022 - Mathew Fleisch"
 	@echo "==============================================="
 	@echo
-	@$(foreach day, $(DAYS), export TDAY=${day} && make run-day; )
+	@$(foreach day, $(DAYS), export TDAY=${day} && make run-day --no-print-directory; )
 
 .PHONY: run-day
 run-day:
@@ -19,6 +19,17 @@ run-day:
 		&& echo "#> ./${TDAY}/challenge2.sh ./${TDAY}/input.txt" \
 		&& ./${TDAY}/challenge2.sh ./${TDAY}/input.txt
 
+.PHONY: docker-build
+docker-build:
+	docker build -t aoc2022 .
+
+.PHONY: docker-run
+docker-run: docker-build
+	docker run -it --rm aoc2022
+
+.PHONY: docker-run-mount
+docker-run-mount: docker-build
+	docker run -it --rm -v ${PWD}:/workspace aoc2022
 
 .PHONY: zip-log
 zip-log:

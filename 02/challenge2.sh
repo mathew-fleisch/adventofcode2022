@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 #shellcheck disable=SC2086
 convertsecs() {
   ((h=${1}/3600))
@@ -8,7 +8,7 @@ convertsecs() {
 }
 
 DEBUG=${DEBUG:-0}
-LOGFILE=${LOGFILE:-log-day02-challenge1.txt}
+LOGFILE=${LOGFILE:-log-day02-challenge2.txt}
 inputFile=${1:-input.txt}
 started=$(date +%s)
 echo "started: $started" > $LOGFILE
@@ -52,7 +52,7 @@ for line in "${values[@]}"; do
     this="${map[$line]}"
     total=$((total+this))
 done
-echo "$total"
+echo "$total" | tee -a $LOGFILE
 
 now=$(date +%s)
 diff=$((now-started))

@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 #shellcheck disable=SC2086
 convertsecs() {
   ((h=${1}/3600))
@@ -51,7 +51,7 @@ for line in "${values[@]}"; do
     this="${map[$line]}"
     total=$((total+this))
 done
-echo "$total"
+echo "$total" | tee -a $LOGFILE
 
 now=$(date +%s)
 diff=$((now-started))
