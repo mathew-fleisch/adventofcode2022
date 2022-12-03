@@ -37,7 +37,10 @@ for line in ${values[@]}; do
     fi
 done
 echo "$group" >> tmp-groups.txt
-cat tmp-groups.txt | sort -nr | head -1 | awk '{ sum += $1 } END { print sum }' | tee -a $LOGFILE
+cat tmp-groups.txt | sort -nr | head -3 >> $LOGFILE
+echo "..." >> $LOGFILE
+echo >> $LOGFILE
+cat tmp-groups.txt | sort -nr | head -1 | tee -a $LOGFILE
 
 rm -f tmp-input.txt
 rm -f tmp-groups.txt
