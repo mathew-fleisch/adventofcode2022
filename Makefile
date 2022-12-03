@@ -18,6 +18,10 @@ docker-build: ## Build a local docker container with dependencies preinstalled
 docker-run: docker-build ## Run solution for every day in a docker container
 	docker run -it --rm -e DEBUG aoc2022
 
+.PHONY: docker-run-day
+docker-run-day: docker-build ## Run solution for specific day in a docker container (TDAY with padded zeros before the 10th)
+	docker run -it --rm -e TDAY -e DEBUG -v ${PWD}:/workspace --entrypoint make aoc2022 run-day
+
 .PHONY: docker-mount
 docker-mount: docker-build ## Mount source code in a docker container
 	docker run -it --rm -e DEBUG --entrypoint /bin/bash -v ${PWD}:/workspace aoc2022
