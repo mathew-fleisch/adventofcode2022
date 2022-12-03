@@ -40,4 +40,7 @@ REDACTED
   - [2022-12-02 - Rock Paper Scissors](02)
     - [Challenge 1](02/challenge1.sh) - calculate win/loss/draw
     - [Challenge 2](02/challenge2.sh) - expect win/loss/draw
+  - [2022-12-03 - Rucksack Reorganization](03)
+    - [Challenge 1](03/challenge1.sh) - cut string in half, and count duplicate letters
+    - [Challenge 2](03/challenge2.sh) - count duplicate letters in groups of three strings
  
