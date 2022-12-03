@@ -35,10 +35,10 @@ echo "Lines: $inputLength" >> $LOGFILE
 # B Z -> (3 + 6) -> 9
 # C Z -> (1 + 6) -> 7
 
-if ! declare -A map ; then
+if ! declare -A map 2> /dev/null ; then
   echo "Associative arrays not supported with this version of bash! Upgrade bash, or use the container provided."
-  bash --version
-  exit 1
+  /bin/bash --version | head -1
+  exit
 fi
 map["A X"]=3
 map["B X"]=1
