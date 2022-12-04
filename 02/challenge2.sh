@@ -55,7 +55,9 @@ for line in "${values[@]}"; do
     [ $DEBUG -eq 1 ] && echo "$line"
     this="${map[$line]}"
     total=$((total+this))
+    echo "$total" >> $LOGFILE
 done
+echo >> $LOGFILE
 echo "$total" | tee -a $LOGFILE
 
 now=$(date +%s)
