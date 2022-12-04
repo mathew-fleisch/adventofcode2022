@@ -26,7 +26,11 @@ total=0
 for line in "${values[@]}"; do
   [ $DEBUG -eq 1 ] && echo "${#line}: ${line}"
 
-  declare -A a
+  if ! declare -A a 2> /dev/null; then
+    echo "Associative arrays not supported with this version of bash! Upgrade bash, or use the container provided."
+    /bin/bash --version | head -1
+    exit
+  fi
   a["a"]=0
   a["b"]=0
   a["c"]=0
