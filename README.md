@@ -21,10 +21,6 @@ To run a single day use the makefile target `run-day` and set the variable `TDAY
 
 ```bash
 $ TDAY=01 make run-day
-========================================
-  Advent of Code 2022[01] - Mathew Fleisch
-========================================
-
 <============= 2022/12/01 =============>
 #> ./01/challenge1.sh ./01/input.txt
 REDACTED
