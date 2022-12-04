@@ -20,7 +20,11 @@ inputLength=${#values[@]}
 echo "Lines: $inputLength" >> $LOGFILE
 
 
-declare -A alpha
+if ! declare -A alpha 2> /dev/null; then
+  echo "Associative arrays not supported with this version of bash! Upgrade bash, or use the container provided."
+  /bin/bash --version | head -1
+  exit
+fi
 alpha["a"]=1
 alpha["b"]=2
 alpha["c"]=3
