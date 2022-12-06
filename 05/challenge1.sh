@@ -27,7 +27,7 @@ fi
 
 for col in {1..9}; do
   stacks[$col]=""
-  for row in $(cat $inputFile | head -8 | sed -e 's/\ \ \ \ /[_] /g' | sed -e 's/\]\[/] [/g' | sed -e 's/\[*\]*//g' | awk '{print $'$col'}' | awk '{ x = $0 "\n" x } END { printf "%s", x }' | sed -e 's/_//g'); do
+  for row in $(cat $inputFile | head -8 | sed -e 's/\ \ \ \ /[_] /g' | sed -e 's/\]\[/] [/g' | sed -e 's/\[*\]*//g' | awk '{print $'$col'}' | awk '{ x = $0 "\n" x } END { printf "%s", x }' | sed -e 's/_//g' 2> /dev/null); do
     stacks[$col]="${stacks[$col]} $row"
   done
 done
@@ -37,7 +37,7 @@ unset row
 
 for col in {1..9}; do
   if [ -n "${stacks[$col]}" ]; then
-    stacks[$col]=$(echo "${stacks[$col]}" | tr ' ' '\n' | sed -e '/^$/d' | tr '\n' ' ')
+    stacks[$col]=$(echo "${stacks[$col]}" | tr ' ' '\n' | sed -e '/^$/d' | tr '\n' ' ' 2> /dev/null)
   fi
 done
 
@@ -60,7 +60,7 @@ done
 answer=""
 for col in {1..9}; do
   if [ -n "${stacks[$col]}" ]; then
-    answer="${answer}$(echo "${stacks[$col]}" | tr ' ' '\n' | sed -e '/^$/d' | tail -n 1)"
+    answer="${answer}$(echo "${stacks[$col]}" | tr ' ' '\n' | sed -e '/^$/d' | tail -n 1 2> /dev/null)"
   fi
 done
 
