@@ -39,4 +39,10 @@ REDACTED
   - [2022-12-03 - Rucksack Reorganization](03)
     - [Challenge 1](03/challenge1.sh) - cut string in half, and count duplicate letters
     - [Challenge 2](03/challenge2.sh) - count duplicate letters in groups of three strings
+  - [2022-12-04 - Camp Cleanup](04)
+    - [Challenge 1](04/challenge1.sh) - overlapping integers (intersection)
+    - [Challenge 2](04/challenge2.sh) - overlapping integers (union)
+  - [2022-12-05 - Supply Stacks](05)
+    - [Challenge 1](05/challenge1.sh) - multidimensional array manipulation
+    - [Challenge 2](05/challenge2.sh) - multidimensional array manipulation++
  
