@@ -17,7 +17,7 @@ docker-build: ## Build a local docker container with dependencies preinstalled
 
 .PHONY: docker-run
 docker-run: docker-build ## Run solution for every day in a docker container
-	docker run --rm -e DEBUG aoc2022
+	docker run --rm -e DEBUG -v ${PWD}:/workspace aoc2022
 
 .PHONY: docker-run-day
 docker-run-day: docker-build ## Run solution for specific day in a docker container (TDAY with padded zeros before the 10th)
