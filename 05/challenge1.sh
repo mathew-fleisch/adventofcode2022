@@ -49,10 +49,10 @@ for line in "${values[@]}"; do
       unit=$(echo "$instruct" | awk '{print $1}')
       from=$(echo "$instruct" | awk '{print $2}')
       dest=$(echo "$instruct" | awk '{print $3}')
-      move=$(echo "${stacks[$from]}" | tr ' ' '\n' | sed -e '/^$/d' | tail -n $unit | awk '{ x = $0 "\n" x } END { printf "%s", x }' | tr '\n' ' ')
-      fromCount=$(echo "${stacks[$from]}" | tr ' ' '\n' | sed -e '/^$/d' | wc -l | awk '{print $1}')
+      move=$(echo "${stacks[$from]}" | tr ' ' '\n' | tail -n $unit | awk '{ x = $0 "\n" x } END { printf "%s", x }' | tr '\n' ' ')
+      fromCount=$(echo "${stacks[$from]}" | tr ' ' '\n' | wc -l | awk '{print $1}')
       nfromCount=$((fromCount-unit))
-      nfrom=$(echo "${stacks[$from]}" | tr ' ' '\n' | sed -e '/^$/d' | head -n $nfromCount | tr '\n' ' ')
+      nfrom=$(echo "${stacks[$from]}" | tr ' ' '\n' | head -n $nfromCount | tr '\n' ' ')
       ndest="${stacks[$dest]} $move"
       stacks[$from]=$(echo "$nfrom" | tr ' ' '\n' | sed -e '/^$/d' | tr '\n' ' ')
       stacks[$dest]=$(echo "$ndest" | tr ' ' '\n' | sed -e '/^$/d' | tr '\n' ' ')
