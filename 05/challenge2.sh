@@ -62,7 +62,7 @@ done
 answer=""
 for col in {1..9}; do
   if [ -n "${stacks[$col]}" ]; then
-    answer="${answer}$(echo "${stacks[$col]}" | tr ' ' '\n' | sed -e '/^$/d' | tail -n 1)"
+    answer="${answer}$(echo "${stacks[$col]}" | tr ' ' '\n' | tail -n 1)"
   fi
 done
 
