@@ -1,5 +1,9 @@
 #!/bin/bash
 #shellcheck disable=SC2086
+set -e
+set -u
+set -o pipefail
+set -x
 convertsecs() {
   ((h=${1}/3600))
   ((m=(${1}%3600)/60))
