@@ -45,4 +45,7 @@ REDACTED
   - [2022-12-05 - Supply Stacks](05)
     - [Challenge 1](05/challenge1.sh) - multidimensional array manipulation
     - [Challenge 2](05/challenge2.sh) - multidimensional array manipulation++
+  - [2022-12-06 - Tuning Trouble](06)
+    - [Challenge 1](06/challenge1.sh) - finding a 4 letter window of unique letters
+    - [Challenge 2](06/challenge2.sh) - finding a 14 letter window of unique letters
  

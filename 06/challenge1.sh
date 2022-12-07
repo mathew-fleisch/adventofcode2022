@@ -25,11 +25,32 @@ if ! declare -A map 2> /dev/null ; then
   exit
 fi
 
+
+len=0
+answer=0
 for line in "${values[@]}"; do
-    [ $DEBUG -eq 1 ] && echo "$line"
+  [ $DEBUG -eq 1 ] && echo "$line"
+  len=${#line}
+
+  for (( i=3; i<$len; i++ )); do
+    a="${line:$((i-3)):1}"
+    b="${line:$((i-2)):1}"
+    c="${line:$((i-1)):1}"
+    d="${line:$((i-0)):1}"
+    [ $DEBUG -eq 1 ] && echo "$((i-3)): $a"
+    [ $DEBUG -eq 1 ] && echo "$((i-2)): $b"
+    [ $DEBUG -eq 1 ] && echo "$((i-1)): $c"
+    [ $DEBUG -eq 1 ] && echo "$((i-0)): $d"
+    uni=$(echo "$a $b $c $d" | tr ' ' '\n' | sort | uniq | wc -l)
+    [ $DEBUG -eq 1 ] && echo "-$uni------------------------"
+    if [ $uni -eq 4 ]; then
+      answer=$((i+1))
+      break
+    fi
+  done
 done
 echo >> $LOGFILE
-echo "Not Implemented" | tee -a $LOGFILE
+echo "$answer" | tee -a $LOGFILE
 
 now=$(date +%s)
 diff=$((now-started))
