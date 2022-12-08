@@ -48,4 +48,7 @@ REDACTED
   - [2022-12-06 - Tuning Trouble](06)
     - [Challenge 1](06/challenge1.sh) - finding a 4 letter window of unique letters
     - [Challenge 2](06/challenge2.sh) - finding a 14 letter window of unique letters
+  - [2022-12-07 - No Space Left On Device](07)
+    - [Challenge 1](07/challenge1.sh) - directory and filesize structure
+    - [Challenge 2](07/challenge2.sh) - find smallest possible directory to delete over threshold
  

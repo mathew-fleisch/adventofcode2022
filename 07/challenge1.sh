@@ -9,6 +9,7 @@ convertsecs() {
 
 DEBUG=${DEBUG:-0}
 LOGFILE=${LOGFILE:-log-day07-challenge1.txt}
+LOGFILE="${PWD}/$LOGFILE"
 inputFile=${1:-input.txt}
 started=$(date +%s)
 echo "started: $started" > $LOGFILE
@@ -24,12 +25,53 @@ if ! declare -A map 2> /dev/null ; then
   /bin/bash --version | head -1
   exit
 fi
-
+starting_at=${PWD}
 for line in "${values[@]}"; do
-    [ $DEBUG -eq 1 ] && echo "$line"
+    if [[ "$line" == "$ cd /" ]]; then
+      rm -rf stage
+      mkdir -p stage
+      pushd stage &>> $LOGFILE
+      continue
+    fi
+    if [[ "$line" == "$ ls" ]]; then
+     continue
+    fi
+    if [[ "$line" =~ ^\$ ]] || [[ "$line" =~ ^dir ]]; then
+      line=$(echo "$line" | sed -e 's/^\$\ //g')
+      [ $DEBUG -eq 1 ] && echo "Command: $line"
+      echo "Command: $line" >> $LOGFILE
+      dir=$(echo "$line" | awk '{print $2}')
+      if [[ "$line" =~ ^dir ]]; then
+        mkdir $dir
+      else
+        if [[ "$dir" == ".." ]]; then
+          popd &>> $LOGFILE
+        else
+          pushd $dir &>> $LOGFILE
+        fi
+      fi
+    else
+      [ $DEBUG -eq 1 ] && echo "File:    $line"
+      filesize=$(echo "$line" | awk '{print $1}')
+      filename=$(echo "$line" | awk '{print $2}' | sed -e 's/$/.txt/g')
+      echo "$filesize" > $filename
+    fi
 done
+cd $starting_at/stage
+[ $DEBUG -eq 1 ] && tree | tee -a $LOGFILE
+touch summary.txt
+for dir in $(find . -type d); do
+  sum=$(find $dir -type f -name "*.txt" | xargs -I {} cat {} | awk '{ sum += $1 } END { print sum }')
+  if [[ $sum -lt 100000 ]]; then
+    echo "$dir: $sum" >> summary.txt
+    echo "$dir: $sum" >> $LOGFILE
+  fi
+done
+answer=$(cat summary.txt | awk '{print $2}' | awk '{ sum += $1 } END { print sum }')
 echo >> $LOGFILE
-echo "Not Implemented" | tee -a $LOGFILE
+echo "$answer" | tee -a $LOGFILE
+cd $starting_at
+[ $DEBUG -ne 1 ] && rm -rf stage
 
 now=$(date +%s)
 diff=$((now-started))
