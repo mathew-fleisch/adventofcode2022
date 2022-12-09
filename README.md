@@ -51,4 +51,7 @@ REDACTED
   - [2022-12-07 - No Space Left On Device](07)
     - [Challenge 1](07/challenge1.sh) - directory and filesize structure
     - [Challenge 2](07/challenge2.sh) - find smallest possible directory to delete over threshold
+  - [2022-12-08 - Treetop Tree House](08)
+    - [Challenge 1](08/challenge1.sh) - count number of visible trees from perimeter
+    - [Challenge 2](08/challenge2.sh) - score each tree's view. return highest
  
