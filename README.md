@@ -54,4 +54,7 @@ REDACTED
   - [2022-12-08 - Treetop Tree House](08)
     - [Challenge 1](08/challenge1.sh) - count number of visible trees from perimeter
     - [Challenge 2](08/challenge2.sh) - score each tree's view. return highest
+  - [2022-12-09 - Rope Bridge](09)
+    - [Challenge 1](09/challenge1.sh) - nokia snake game with 2 segments (+diagonals)
+    - [Challenge 2](09/challenge2.sh) - nokia snake game with 10 segments (+diagonals)
  
