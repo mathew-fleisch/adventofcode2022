@@ -57,4 +57,10 @@ REDACTED
   - [2022-12-09 - Rope Bridge](09)
     - [Challenge 1](09/challenge1.sh) - nokia snake game with 2 segments (+diagonals)
     - [Challenge 2](09/challenge2.sh) - nokia snake game with 10 segments (+diagonals)
+  - [2022-12-10 - Cathode-Ray Tube](10)
+    - [Challenge 1](10/challenge1.sh) - do addition and subtraction at specific times
+    - [Challenge 2](10/challenge2.sh) - use addition and subtraction and compare to a position value
+
+
+
  

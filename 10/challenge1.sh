@@ -1,5 +1,5 @@
 #!/bin/bash
-#shellcheck disable=SC2086
+#shellcheck disable=SC2086,SC2143
 convertsecs() {
   ((h=${1}/3600))
   ((m=(${1}%3600)/60))
@@ -19,17 +19,58 @@ inputLength=${#values[@]}
 [ $DEBUG -eq 1 ] && echo "Lines: $inputLength"
 echo "Lines: $inputLength" >> $LOGFILE
 
-if ! declare -A map 2> /dev/null ; then
-  echo "Associative arrays not supported with this version of bash! Upgrade bash, or use the container provided."
-  /bin/bash --version | head -1
-  exit
-fi
-
+track=0
+taction=0
+x=1
+interesting="20 60 100 140 180 220"
+signals=""
 for line in "${values[@]}"; do
-    [ $DEBUG -eq 1 ] && echo "$line"
+  strength=0
+  track=$((track+1))
+  # [ $DEBUG -eq 1 ] && echo "$line"
+  actions=$(echo "$line" | tr ' ' '\n' | wc -l | awk '{print $1}')
+  taction=$((taction+actions))
+  ltaction=$((taction-1))
+  if [[ "$line" =~ ^noop$ ]]; then
+    echo "${track}[${taction}]: $line" >> $LOGFILE
+    echo "x: $x" >> $LOGFILE
+    [ $DEBUG -eq 1 ] && echo "${track}[${taction}]: $line" && echo "x: $x"
+    if [ -n "$(echo "$interesting" | tr ' ' '\n' | grep -E "^$taction$")" ]; then
+      strength=$((taction*x))
+      signals="$signals $strength"
+      echo "STRENGTH[0][$taction * $x]: $strength" >> $LOGFILE
+      [ $DEBUG -eq 1 ] && echo "STRENGTH[0][$taction * $x]: $strength"
+    fi
+    continue
+  fi
+  echo "${track}[${ltaction}]: addx" >> $LOGFILE
+  echo "x: $x" >> $LOGFILE
+
+  [ $DEBUG -eq 1 ] && echo "${track}[${ltaction}]: addx" && echo "x: $x"
+
+  if [ -n "$(echo "$interesting" | tr ' ' '\n' | grep -E "^$ltaction$")" ]; then
+    strength=$((ltaction*x))
+    signals="$signals $strength"
+    echo "STRENGTH[1][$ltaction * $x]: $strength" >> $LOGFILE
+    [ $DEBUG -eq 1 ] && echo "STRENGTH[1][$ltaction * $x]: $strength"
+  fi
+
+  val=$(echo "$line" | awk '{print $2}')
+  lx=$x
+  x=$((x+val))
+  echo "${track}[${taction}]: $val" >> $LOGFILE
+  echo "x: $x" >> $LOGFILE
+  [ $DEBUG -eq 1 ] && echo "${track}[${taction}]: $val" && echo "x: $x"
+  if [ -n "$(echo "$interesting" | tr ' ' '\n' | grep -E "^$taction$")" ]; then
+    strength=$((taction*lx))
+    signals="$signals $strength"
+    echo "STRENGTH[2][$taction * $lx]: $strength" >> $LOGFILE
+    [ $DEBUG -eq 1 ] && echo "STRENGTH[2][$taction * $lx]: $strength"
+  fi
 done
 echo >> $LOGFILE
-echo "Not Implemented" | tee -a $LOGFILE
+strength=$(echo "$signals" | tr ' ' '\n' | awk '{ sum += $1 } END { print sum }')
+echo "$strength" | tee -a $LOGFILE
 
 now=$(date +%s)
 diff=$((now-started))
