@@ -1,5 +1,5 @@
 #!/bin/bash
-#shellcheck disable=SC2086
+#shellcheck disable=SC2086,SC2143,SC2003,SC2046
 convertsecs() {
   ((h=${1}/3600))
   ((m=(${1}%3600)/60))
@@ -19,18 +19,70 @@ inputLength=${#values[@]}
 [ $DEBUG -eq 1 ] && echo "Lines: $inputLength"
 echo "Lines: $inputLength" >> $LOGFILE
 
-if ! declare -A map 2> /dev/null ; then
-  echo "Associative arrays not supported with this version of bash! Upgrade bash, or use the container provided."
-  /bin/bash --version | head -1
-  exit
-fi
-
+track=0
+taction=0
+horizontal=0
+x=1
+lx=1
+# interesting="20 60 100 140 180 220"
+stage=""
 for line in "${values[@]}"; do
-    [ $DEBUG -eq 1 ] && echo "$line"
+  track=$((track+1))
+  # [ $DEBUG -eq 1 ] && echo "$line"
+  actions=$(echo "$line" | tr ' ' '\n' | wc -l | awk '{print $1}')
+  taction=$((taction+actions))
+  ltaction=$((taction-1))
+  if [[ "$line" =~ ^noop$ ]]; then
+    echo "${track}[${taction}]: $line" >> $LOGFILE
+    echo "x: $x" >> $LOGFILE
+    horizontal=$(expr $taction % 40)
+    horizontal=$((horizontal-1))
+    [ $DEBUG -eq 1 ] && echo "${track}[${taction}][$horizontal][0]: x: $x"
+    x1=$((x-1))
+    x2=$((x+1))
+    if [ $horizontal -eq $x1 ] || [ $horizontal -eq $x ] || [ $horizontal -eq $x2 ]; then
+      stage="${stage}#"
+    else
+      stage="${stage} "
+    fi
+    continue
+  fi
+  echo "${track}[${ltaction}]: addx" >> $LOGFILE
+  echo "x: $x" >> $LOGFILE
+  horizontal=$(expr $ltaction % 40)
+  horizontal=$((horizontal-1))
+  [ $DEBUG -eq 1 ] && echo "${track}[${ltaction}][$horizontal][1]: x: $x"
+  x1=$((x-1))
+  x2=$((x+1))
+  if [ $horizontal -eq $x1 ] || [ $horizontal -eq $x ] || [ $horizontal -eq $x2 ]; then
+    stage="${stage}#"
+  else
+    stage="${stage} "
+  fi
+  
+  val=$(echo "$line" | awk '{print $2}')
+  lx=$x
+  x=$((x+val))
+  echo "${track}[${taction}]: $val" >> $LOGFILE
+  echo "x: $x" >> $LOGFILE
+  horizontal=$(expr $taction % 40)
+  horizontal=$((horizontal-1))
+  [ $DEBUG -eq 1 ] && echo "${track}[${taction}][$horizontal][2]: x: $lx"
+  x1=$((lx-1))
+  x2=$((lx+1))
+  if [ $horizontal -eq $x1 ] || [ $horizontal -eq $lx ] || [ $horizontal -eq $x2 ]; then
+    stage="${stage}#"
+  else
+    stage="${stage} "
+  fi
 done
 echo >> $LOGFILE
-echo "Not Implemented" | tee -a $LOGFILE
-
+for (( ind=0; ind<240; ind++ )); do
+  [ $(expr $ind % 40) -eq 0 ] && echo | tee -a $LOGFILE
+  printf '%s' "${stage:$ind:1}" | tee -a $LOGFILE
+done
+echo >> $LOGFILE
+echo
 now=$(date +%s)
 diff=$((now-started))
 echo "ended: $now" >> $LOGFILE
