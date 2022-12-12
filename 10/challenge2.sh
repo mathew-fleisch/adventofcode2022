@@ -82,6 +82,7 @@ for (( ind=0; ind<240; ind++ )); do
   printf '%s' "${stage:$ind:1}" | tee -a $LOGFILE
 done
 echo >> $LOGFILE
+echo
 now=$(date +%s)
 diff=$((now-started))
 echo "ended: $now" >> $LOGFILE
