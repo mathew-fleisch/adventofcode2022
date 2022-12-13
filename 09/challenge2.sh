@@ -9,6 +9,19 @@ convertsecs() {
 
 DEBUG=${DEBUG:-0}
 LOGFILE=${LOGFILE:-log-day09-challenge2.txt}
+SKIP_LONG=${SKIP_LONG:-0}
+precalc_filename="${LOGFILE}.tar.gz"
+if [ $SKIP_LONG -eq 1 ]; then
+  if [ -f "$precalc_filename" ]; then
+    tar xzf $precalc_filename
+  fi
+  if [ -f "09/$precalc_filename" ]; then
+    tar xzf 09/$precalc_filename
+  fi
+  
+  echo "Pre-calculated: 2717"
+  exit
+fi
 inputFile=${1:-input.txt}
 started=$(date +%s)
 echo "started: $started" > $LOGFILE
