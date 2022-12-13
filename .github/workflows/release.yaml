@@ -12,6 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Execute challenge answer scripts
+        env:
+          SKIP_LONG: 1
         run: |
           make docker-run | tee /tmp/aoc2022-mathew-fleisch-answers.txt
           make zip-log
